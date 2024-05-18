@@ -70,7 +70,7 @@ local ever = wezterm.color.get_builtin_schemes()["Everforest Dark (Gogh)"]
 c.colors = ever
 
 -- 透明背景
-c.window_background_opacity = 0.9
+c.window_background_opacity = 1
 -- 取消 Windows 原生标题栏
 c.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 -- 滚动条尺寸为 15 ，其他方向不需要 pad

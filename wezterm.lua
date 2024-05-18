@@ -46,7 +46,7 @@ c.enable_scroll_bar = true
 -- 取消所有默认的热键
 c.disable_default_key_bindings = true
 local act = wezterm.action
--- c.keys = {
+c.keys = {
   -- Ctrl+Shift+Tab 遍历 tab
   { key = 'Tab', mods = 'SHIFT|CTRL', action = act.ActivateTabRelative(1) },
   -- F11 切换全屏

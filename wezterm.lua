@@ -38,6 +38,13 @@ end
 -- os compat
 local compat = require(string.format("modules.%s", get_os_name()))
 -- machine compat
+if !exists("modules/local-machine.lua") then
+  local mc_file = io.open("modules/local-machine.lua", "w")
+  if mc_file then
+    mc_file:write("return {}")
+    mc_file:close()
+  end
+end
 local mc_compat = require"modules.local-machine"
 -- merge os with machine, override os
 for k, v in pairs(mc_compat) do

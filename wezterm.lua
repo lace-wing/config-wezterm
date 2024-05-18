@@ -22,7 +22,7 @@ local function get_os_name()
   if exists("C:\\") then
     return "windows"
   end
-  if isdir("/User") then
+  if isdir("/Users") then
     return "macos"
   end
   return "linux"

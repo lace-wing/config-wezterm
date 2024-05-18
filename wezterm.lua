@@ -1,18 +1,58 @@
+--from https://stackoverflow.com/questions/1340230/check-if-directory-exists-in-lua
+--- Check if a file or directory exists in this path
+local function exists(file)
+   local ok, err, code = os.rename(file, file)
+   if not ok then
+      if code == 13 then
+         -- Permission denied, but it exists
+         return true
+      end
+   end
+   return ok, err
+end
+
+--- Check if a directory exists in this path
+local function isdir(path)
+   -- "/" works on both Unix and Windows
+   return exists(path.."/")
+end
+--endfrom
+
+local function get_os_name()
+  if exists("C:\\") then
+    return "windows"
+  end
+  if isdir("/User") then
+    return "macos"
+  end
+  return "linux"
+end
+
+-- get wezterm config
 local wezterm = require 'wezterm'
 local c = {}
 if wezterm.config_builder then
   c = wezterm.config_builder()
 end
 
+-- os compat
+local compat = require(string.format("modules.%s", get_os_name()))
+-- machine compat
+local mc_compat = require"modules.local-machine"
+-- merge os with machine, override os
+for k, v in pairs(mc_compat) do
+  compat[k] = v
+end
+
 -- 初始大小
-c.initial_cols = 96
+
 c.initial_rows = 24
 
 -- 关闭时不进行确认
 c.window_close_confirmation = 'NeverPrompt'
 
 -- 字体
-config.font = wezterm.font_with_fallback {
+c.font = wezterm.font_with_fallback {
 	"MonaspiceAr NF",
 	"Heiti SC",
 }
@@ -31,17 +71,13 @@ c.window_padding = { left = 0, right = 15, top = 0, bottom = 0 }
 -- 启用滚动条
 c.enable_scroll_bar = true
 
--- 默认启动 MinGW64 / MSYS2
--- c.default_prog = { 'C:/msys64/msys2_shell.cmd', '-defterm', '-here', '-no-start', '-shell', 'zsh', '-mingw64' }
+-- launch main shell
+c.default_prog = { compat.shell.default.path }
 
--- 启动菜单的一些启动项
--- c.launch_menu = {
---   { label = 'MINGW64 / MSYS2', args = { 'C:/msys64/msys2_shell.cmd', '-defterm', '-here', '-no-start', '-shell', 'zsh', '-mingw64' }, },
---   { label = 'MSYS / MSYS2',    args = { 'C:/msys64/msys2_shell.cmd', '-defterm', '-here', '-no-start', '-shell', 'zsh', '-msys' }, },
---   { label = 'PowerShell',      args = { 'C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe' }, },
---   { label = 'CMD',             args = { 'cmd.exe' }, },
---   { label = 'nas / ssh',       args = { 'C:/msys64/usr/bin/ssh.exe', 'nas' }, },
--- }
+c.launch_menu = {
+  { label = 'PowerShell',      args = { 'C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe' }, },
+  { label = 'CMD',             args = { 'cmd.exe' }, },
+}
 
 -- 取消所有默认的热键
 c.disable_default_key_bindings = true

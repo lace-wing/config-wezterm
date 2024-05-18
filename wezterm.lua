@@ -12,12 +12,15 @@ c.initial_rows = 24
 c.window_close_confirmation = 'NeverPrompt'
 
 -- 字体
--- c.font = wezterm.font 'Noto Mono'
+config.font = wezterm.font_with_fallback {
+	"MonaspiceAr NF",
+	"Heiti SC",
+}
 
 -- 配色
-local materia = wezterm.color.get_builtin_schemes()['Material Darker (base16)']
-materia.scrollbar_thumb = '#cccccc' -- 更明显的滚动条
-c.colors = materia
+local ever = wezterm.color.get_builtin_schemes()["Everforest Dark (Gogh)"]
+-- ever.scrollbar_thumb = '#cccccc' -- 更明显的滚动条
+c.colors = ever
 
 -- 透明背景
 c.window_background_opacity = 0.9
@@ -43,7 +46,7 @@ c.enable_scroll_bar = true
 -- 取消所有默认的热键
 c.disable_default_key_bindings = true
 local act = wezterm.action
-c.keys = {
+-- c.keys = {
   -- Ctrl+Shift+Tab 遍历 tab
   { key = 'Tab', mods = 'SHIFT|CTRL', action = act.ActivateTabRelative(1) },
   -- F11 切换全屏

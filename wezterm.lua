@@ -60,7 +60,7 @@ c.window_close_confirmation = 'NeverPrompt'
 
 -- 字体
 c.font = wezterm.font_with_fallback {
-	"MonaspiceAr NF",
+	"MonaspiceAr NFM",
 	"Heiti SC",
 }
 

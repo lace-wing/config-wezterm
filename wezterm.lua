@@ -52,6 +52,7 @@ c.font = wezterm.font_with_fallback {
 	"MonaspiceAr NFM",
 	"Heiti SC",
 }
+c.font_size = 16.0
 
 -- 配色
 local ever = wezterm.color.get_builtin_schemes()["Everforest Dark (Gogh)"]

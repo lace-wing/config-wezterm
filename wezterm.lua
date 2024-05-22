@@ -68,13 +68,10 @@ c.window_padding = { left = 0, right = 15, top = 0, bottom = 0 }
 c.enable_scroll_bar = true
 
 -- launch main shell
-c.default_prog = { compat.shell[1].path }
+c.default_prog = { compat.shell[1].args[1] }
 
 --  create launch_menu
-c.launch_menu = {}
-for _, shell in pairs(compat.shell) do
-  c.launch_menu[#c.launch_menu+1] = { label = shell.name, args = { shell.path } }
-end
+c.launch_menu = compat.shell
 
 -- 取消所有默认的热键
 c.disable_default_key_bindings = true

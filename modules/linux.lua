@@ -1,12 +1,12 @@
 return {
   shell = {
-    default = {
-      name = "nushell",
-      path = "/opt/homebrew/bin/nu",
+    {
+      label = "nushell",
+      args = { "/opt/homebrew/bin/nu" },
     },
-    zsh = {
-      name = "zsh",
-      path = "/bin/zsh",
+    {
+      label = "zsh",
+      args = { "/bin/zsh" },
     }
   }
 }

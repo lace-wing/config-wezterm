@@ -68,7 +68,7 @@ c.window_padding = { left = 0, right = 15, top = 0, bottom = 0 }
 c.enable_scroll_bar = true
 
 -- launch main shell
-c.default_prog = { compat.shell.default.path }
+c.default_prog = { compat.shell[1].path }
 
 --  create launch_menu
 c.launch_menu = {}

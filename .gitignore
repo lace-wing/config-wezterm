@@ -2,5 +2,5 @@
 .DS_Store
 
 # local files
-[Ll]ocal-*
-[Ll]ocal-*/
+*/[Ll]ocal-*
+*/[Ll]ocal-*/

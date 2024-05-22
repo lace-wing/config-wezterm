@@ -10,19 +10,13 @@ local function exists(file)
    end
    return ok, err
 end
-
---- Check if a directory exists in this path
-local function isdir(path)
-   -- "/" works on both Unix and Windows
-   return exists(path.."/")
-end
 --endfrom
 
 local function get_os_name()
   if exists("C:\\") then
     return "windows"
   end
-  if isdir("/Users") then
+  if exists("/Users") then
     return "macos"
   end
   return "linux"
@@ -38,17 +32,12 @@ end
 -- os compat
 local compat = require(string.format("modules.%s", get_os_name()))
 -- machine compat
-if not exists("modules/local-machine.lua") then
-  local mc_file = io.open("modules/local-machine.lua", "w")
-  if mc_file then
-    mc_file:write("return {}")
-    mc_file:close()
+if exists("modules/local-machine.lua") then
+  local mc_compat = require"modules.local-machine"
+  -- merge os with machine, override os
+  for k, v in pairs(mc_compat) do
+    compat[k] = v
   end
-end
-local mc_compat = require"modules.local-machine"
--- merge os with machine, override os
-for k, v in pairs(mc_compat) do
-  compat[k] = v
 end
 
 -- 初始大小
@@ -81,10 +70,11 @@ c.enable_scroll_bar = true
 -- launch main shell
 c.default_prog = { compat.shell.default.path }
 
-c.launch_menu = {
-  { label = 'PowerShell',      args = { 'C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe' }, },
-  { label = 'CMD',             args = { 'cmd.exe' }, },
-}
+--  create launch_menu
+c.launch_menu = {}
+for _, shell in pairs(compat.shell) do
+  c.launch_menu[#c.launch_menu+1] = { label = shell.name, args = { shell.path } }
+end
 
 -- 取消所有默认的热键
 c.disable_default_key_bindings = true

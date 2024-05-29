@@ -55,9 +55,9 @@ c.font = wezterm.font_with_fallback {
 c.font_size = 16.0
 
 -- 配色
-local ever = wezterm.color.get_builtin_schemes()["Everforest Dark (Gogh)"]
+local color_theme = wezterm.color.get_builtin_schemes()["Espresso (base16)"]
 -- ever.scrollbar_thumb = '#cccccc' -- 更明显的滚动条
-c.colors = ever
+c.colors = color_theme
 
 -- 透明背景
 c.window_background_opacity = 1

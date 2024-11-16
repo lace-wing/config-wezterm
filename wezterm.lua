@@ -42,7 +42,7 @@ end
 
 -- 初始大小
 
-c.initial_rows = 24
+c.initial_rows = 36
 
 -- 关闭时不进行确认
 c.window_close_confirmation = 'NeverPrompt'
@@ -60,11 +60,12 @@ local color_theme = wezterm.color.get_builtin_schemes()["Espresso (base16)"]
 c.colors = color_theme
 
 -- 透明背景
-c.window_background_opacity = 1
+c.window_background_opacity = 0.85
 -- 取消 Windows 原生标题栏
-c.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+c.window_decorations = "RESIZE"
+c.enable_tab_bar = false
 -- 滚动条尺寸为 15 ，其他方向不需要 pad
-c.window_padding = { left = 0, right = 15, top = 0, bottom = 0 }
+c.window_padding = { left = 15, right = 15, top = 15, bottom = 0 }
 -- 启用滚动条
 c.enable_scroll_bar = true
 

@@ -56,11 +56,10 @@ c.font_size = 16.0
 
 -- 配色
 local color_theme = wezterm.color.get_builtin_schemes()["Espresso (base16)"]
--- ever.scrollbar_thumb = '#cccccc' -- 更明显的滚动条
 c.colors = color_theme
 
 -- 透明背景
-c.window_background_opacity = 0.85
+c.window_background_opacity = 0.9
 -- 取消 Windows 原生标题栏
 c.window_decorations = "RESIZE"
 c.enable_tab_bar = false
@@ -74,7 +73,5 @@ c.default_prog = { compat.shell[1].args[1] }
 
 --  create launch_menu
 c.launch_menu = compat.shell
-
-local act = wezterm.action
 
 return c
